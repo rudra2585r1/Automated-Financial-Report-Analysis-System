@@ -37,6 +37,8 @@ python app.py
 
 http://127.0.0.1:5000
 
+Make sure both ollama and app.py runs in two different terminals
+
 Upload a financial report (**PDF recommended**) and start asking questions about the report.
 
 ---
@@ -54,7 +56,7 @@ Upload a financial report (**PDF recommended**) and start asking questions about
 
 ## Current Limitation
 
-At the moment, the system analyzes **one financial report at a time**. I am currently working on improving the system so that it can **process and analyze multiple financial documents simultaneously**.
+At the moment, the system analyzes **one financial report at a time**. I am currently working on improving the system so that it can **process and analyze multiple financial documents simultaneously**.It's slower to give analysis of the report.
 
 ---
 
@@ -68,3 +70,4 @@ This project is still under development and I am continuously working to improve
 • Adding peer company comparison
 • Enhancing visual dashboards and financial insights
 • Converting the project into a **complete web application**
+• Make it faster.
