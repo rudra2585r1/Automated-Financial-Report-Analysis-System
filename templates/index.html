@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Automated Finance Report Analyzer</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<script>
+
+function sendOnEnter(event){
+if(event.key === "Enter"){
+event.preventDefault();
+document.getElementById("chat-form").submit();
+}
+}
+
+window.onload=function(){
+const chatbox=document.getElementById("chatbox");
+if(chatbox){
+chatbox.scrollTop=chatbox.scrollHeight;
+}
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LEFT PANEL -->
+<div class="upload-panel">
+
+<h2>Upload Files</h2>
+
+<p class="upload-tip">
+Recommended: Upload financial reports in <b>PDF format</b> for the best analysis results.
+</p>
+
+<form method="POST" enctype="multipart/form-data" class="upload-form">
+
+<input
+type="file"
+name="files"
+id="fileInput"
+multiple
+required
+onchange="
+document.getElementById('fileName').innerText=this.files[0].name;
+document.getElementById('fileStatus').innerText='File selected';
+">
+
+<label for="fileInput" class="file-box" id="fileName">
+
+{% if selected_files %}
+{{ selected_files }}
+{% else %}
+Select Financial Files
+{% endif %}
+
+</label>
+
+<p class="file-status" id="fileStatus">
+
+{% if file_status %}
+{{ file_status }}
+{% else %}
+No file chosen
+{% endif %}
+
+</p>
+
+<button type="submit" class="upload-btn">
+Upload Files
+</button>
+
+</form>
+
+{% if message %}
+<p class="upload-msg">{{ message }}</p>
+{% endif %}
+
+</div>
+
+
+
+<!-- CHAT PANEL -->
+
+<div class="chat-panel">
+
+<h1 class="title">Automated Finance Report Analyzer</h1>
+
+
+<div class="chatbox" id="chatbox">
+
+{% if summary_lines %}
+
+<div class="summary-box">
+
+<h3>AI Executive Summary</h3>
+
+<ul class="summary-list">
+
+{% for line in summary_lines %}
+<li>{{ line }}</li>
+{% endfor %}
+
+</ul>
+
+</div>
+
+{% endif %}
+
+
+
+{% if analysis %}
+
+<div class="bot analysis-box">
+
+<strong>Financial Analysis Result</strong>
+
+<div class="analysis-text">
+{{ analysis }}
+</div>
+
+<img src="/static/revenue_trend.png" class="chart">
+
+</div>
+
+{% endif %}
+
+
+
+{% for chat in chat_history %}
+
+<div class="user">
+{{ chat.question }}
+</div>
+
+<div class="bot">
+{{ chat.answer }}
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+<form id="chat-form" action="/chat" method="POST" class="input-area">
+
+<input
+type="text"
+name="question"
+placeholder="Ask about the financial report..."
+onkeydown="sendOnEnter(event)"
+required
+>
+
+<button type="submit">Send</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
